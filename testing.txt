@@ -1,0 +1,7 @@
+encode.py C:\Users\natha\OneDrive\Desktop\School\WPI\IQP\my_test_images C:\Users\natha\OneDrive\Desktop\School\WPI\IQP\test_out test
+decode.py C:\Users\natha\OneDrive\Desktop\School\WPI\IQP\test_out\me_1.jpg
+
+encode.py ..\..\my_test_images ..\..\test_out testaaaabbbbcccctestaaaabbbbcccc
+decode.py ..\..\test_out\me_1.jpg
+
+decode.py "..\..\test_out\me_1 - Copy (4).jpg"
