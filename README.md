@@ -12,9 +12,9 @@ See https://github.com/shieldmnt/invisible-watermark
 4. Activate the environment using `pipenv shell`
 
 ## Running
-To encode, run `encode.py input-folder output-folder message`
-To decode, run `decode.py input-file`
-QUOTATION MARKS ARE NOT NECESSARY
+To encode, run `encode.py input-folder output-folder message`  
+To decode, run `decode.py input-file`  
+QUOTATION MARKS ARE NOT NECESSARY  
 If you're getting an error relating to blind_watermark, make sure to run `pipenv shell`
 
 ## Misc.
