@@ -6,7 +6,7 @@ from imwatermark import WatermarkEncoder
 def main():
 
     if len(sys.argv) != 4:
-        print("The command should be formatted as:\nencode.py input-folder output-folder message\nQuotations are necessary if the path or message has spaces.")
+        print("The command should be formatted as:\nencode.py input-folder output-folder message\nQuotations are only necessary if the path or message has spaces.")
         exit(0)
 
     inputFolder = sys.argv[1]
@@ -14,7 +14,7 @@ def main():
     message = sys.argv[3]
 
     if len(message) != 32:
-        print("The message must be exactly 32 characters long.")
+        print("The message must be exactly 32 characters long. Your message is", len(message), "characters long.")
         exit(0)
 
     images = find_images(inputFolder)

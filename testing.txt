@@ -4,4 +4,18 @@ decode.py C:\Users\natha\OneDrive\Desktop\School\WPI\IQP\test_out\me_1.jpg
 encode.py ..\..\my_test_images ..\..\test_out testaaaabbbbcccctestaaaabbbbcccc
 decode.py ..\..\test_out\me_1.jpg
 
-decode.py "..\..\test_out\me_1 - Copy (4).jpg"
+thisisa32charactermessage_extra7
+
+https://github.com/shieldmnt/invisible-watermark
+decode.py ..\..\test_robustness\me_1-compressed.jpg         compress (size -46%)        pass (1 char wrong)
+decode.py ..\..\test_robustness\me_1-noise.jpg              noise                       fail
+decode.py ..\..\test_robustness\me_1-brightness_down.jpg    decrease brightness (~50%)  fail
+decode.py ..\..\test_robustness\me_1-brightness_up.jpg      increase brightness (~50%)  fail
+decode.py ..\..\test_robustness\me_1-overlay.jpg            overlay (draw stuff)        pass
+decode.py ..\..\test_robustness\me_1-mask.jpg               mask (block out sections)   pass (1 char wrong)
+decode.py ..\..\test_robustness\me_1-crop-mild.jpg          mild crop                   fail
+decode.py ..\..\test_robustness\me_1-crop-severe.jpg        severe crop                 fail
+decode.py ..\..\test_robustness\me_1-resize-95.jpg          resize (95%)                fail
+decode.py ..\..\test_robustness\me_1-resize-50.jpg          resize (50%)                fail
+decode.py ..\..\test_robustness\me_1-rotate-1.jpg           rotate (1 degree)           fail
+decode.py ..\..\test_robustness\me_1-rotate-30.jpg          rotate (30 degrees)         fail
