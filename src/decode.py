@@ -12,7 +12,7 @@ def main():
 
     bgr = cv2.imread(inputFile)
 
-    decoder = WatermarkDecoder('bytes', 256)
+    decoder = WatermarkDecoder('bytes', 256) # Change this line for different message lengths
     watermark = decoder.decode(bgr, 'dwtDctSvd')
     print(watermark.decode('utf-8'))
 

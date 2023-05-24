@@ -5,6 +5,9 @@ from imwatermark import WatermarkEncoder
 
 def main():
 
+    messageLen = 32 # Change this line for different message lengths
+
+    # Incorrect args format
     if len(sys.argv) != 4:
         print("The command should be formatted as:\nencode.py input-folder output-folder message\nQuotations are only necessary if the path or message has spaces.")
         exit(0)
@@ -13,15 +16,18 @@ def main():
     outputFolder = sys.argv[2]
     message = sys.argv[3]
 
-    if len(message) != 32:
-        print("The message must be exactly 32 characters long. Your message is", len(message), "characters long.")
+    # Incorrect message length
+    if len(message) != messageLen:
+        print("The message must be exactly", messageLen, "characters long. Your message is", len(message), "characters long.")
         exit(0)
 
+    # Get the images
     images = find_images(inputFolder)
 
     numImages = len(images)
     numCompleted = 1
 
+    # Encode each image
     for image in images:
         print("Encoding image ", numCompleted, "/", numImages, end="\r")
         encode_single_image(image, generate_output_path(image, inputFolder, outputFolder), message)
@@ -30,15 +36,29 @@ def main():
     print("Finished encoding", numImages, "images.")
 
 def encode_single_image(imagePath, outputPath, message):
+    '''
+    Encodes a single image and saves it the the givem path.
+    imagePath: String. The  path to the image.
+    outputPath: String. The path the i=mage will be saved to. Thje paht should include the file name.
+    message: The message to encode the image with.
+    '''
+
+    # Open  the image
     bgr = cv2.imread(imagePath)
 
+    # Encode the image
     encoder = WatermarkEncoder()
     encoder.set_watermark('bytes', message.encode('utf-8'))
     bgr_encoded = encoder.encode(bgr, 'dwtDctSvd')
 
+    # Save the image
     cv2.imwrite(outputPath, bgr_encoded)
 
 def find_images(inputFolder):
+    '''
+    Finds all the images in the input directory. Also searched subdirectories for images.
+    Returns: String[] of the paths to the images.
+    '''
     print("Scanning subdirectories for images...")
 
     numFound = 0
@@ -57,6 +77,12 @@ def find_images(inputFolder):
     return arr
     
 def generate_output_path(image, inputFolder, outputFolder):
+    '''
+    Generates the output path for an image. Creates any directories that don't exist.
+    image: String. The path to the image.
+    inputfolder: String. The path to the root folder that is being searched for images.
+    outputFolder: String. The folder the images will be saved to.
+    '''
     # The image path
     path = outputFolder + image[len(inputFolder):]
 
