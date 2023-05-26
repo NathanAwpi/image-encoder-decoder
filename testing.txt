@@ -1,12 +1,33 @@
 encode.py C:\Users\natha\OneDrive\Desktop\School\WPI\IQP\my_test_images C:\Users\natha\OneDrive\Desktop\School\WPI\IQP\test_out testaaaabbbbcccctestaaaabbbbcccc
 decode.py C:\Users\natha\OneDrive\Desktop\School\WPI\IQP\test_out\me_1.jpg
 
-encode.py ..\..\my_test_images ..\..\test_out testaaaabbbbcccctestaaaabbbbcccc
+encode.py ..\..\my_test_images ..\..\test_out _thisisa32charactersamplemessage
 decode.py ..\..\test_out\me_1.jpg
 
-thisisa32charactermessage_extra7
+encode.py ..\..\my_test_images ..\..\test_out _thisisa32charactersamplemessage && decode.py ..\..\test_out\me_1.jpg
 
-https://github.com/shieldmnt/invisible-watermark (using this one currently)
+decode.py ..\..\test_robustness\modified_shieldmnt\single_image\rotate_1.jpg
+
+testaaaabbbbcccctestaaaabbbbcccc
+thisisa32charactermessage_extra7
+_thisisa32charactersamplemessage
+
+Modified version of https://github.com/shieldmnt/invisible-watermark (currently using) - using single image
+compress (size -46%)        pass
+noise (10%)                 pass
+noise (50%)                 fail
+decrease brightness (~50%)  fail
+increase brightness (~50%)  pass? (50% of chars wrong)
+overlay (draw stuff)        pass
+mask (block out sections)   pass
+mild crop (right/bottom)    pass
+severe crop (all sides)     pass? (50% of chars wrong)
+resize (95%)                fail
+resize (50%)                fail
+rotate (1 degree)           fail
+rotate (30 degrees)         fail
+
+https://github.com/shieldmnt/invisible-watermark
 compress (size -46%)        pass (1 char wrong)
 noise                       fail
 decrease brightness (~50%)  fail

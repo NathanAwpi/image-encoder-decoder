@@ -2,6 +2,7 @@ import sys
 import os
 import cv2
 from imwatermark import WatermarkEncoder
+import watermarklib
 
 def main():
 
@@ -22,7 +23,7 @@ def main():
         exit(0)
 
     # Get the images
-    images = find_images(inputFolder)
+    images = watermarklib.find_images(inputFolder)
 
     numImages = len(images)
     numCompleted = 1
@@ -53,28 +54,6 @@ def encode_single_image(imagePath, outputPath, message):
 
     # Save the image
     cv2.imwrite(outputPath, bgr_encoded)
-
-def find_images(inputFolder):
-    '''
-    Finds all the images in the input directory. Also searched subdirectories for images.
-    Returns: String[] of the paths to the images.
-    '''
-    print("Scanning subdirectories for images...")
-
-    numFound = 0
-    arr = []
-
-    # Find all the images in the directory and in subdirectories
-    for root, dirs, files in os.walk(inputFolder, topdown=False):
-        for file in files:
-            if file.endswith(".jpg") or file.endswith(".png"):
-                numFound += 1
-                print("Found", numFound, "images.", end="\r")
-
-                arr.append(os.path.join(root, file))
-
-    print("Found", numFound, "images.")
-    return arr
     
 def generate_output_path(image, inputFolder, outputFolder):
     '''

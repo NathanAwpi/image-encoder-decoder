@@ -9,7 +9,9 @@ See https://github.com/shieldmnt/invisible-watermark
 2. Navigate to ./src
 3. Run the command `pipenv install -r requirements.txt`
     - If you don't have pipenv, install it using `pip install --user pipenv`
-4. Activate the environment using `pipenv shell`
+4. Run the command `pip install -e invisible-watermark-main`
+    - This will install the local version of invisible-watermark, so you can edit it.
+5. Activate the environment using `pipenv shell`
 
 ## Running
 To encode, run `encode.py input-folder output-folder message`  
