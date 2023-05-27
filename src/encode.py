@@ -44,7 +44,7 @@ def encode_single_image(imagePath, outputPath, message):
     message: The message to encode the image with.
     '''
 
-    # Open  the image
+    # Open the image
     bgr = cv2.imread(imagePath)
 
     # Encode the image

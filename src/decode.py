@@ -44,7 +44,7 @@ def multipleImages():
         # Get the lists of all the combinations of bits that can be added to the array
         for w in wm:
             str = wmlib.decodeString(bin(int(w.hex(), base=16))[2:]) # Convert from bytes type to bits
-            strArr = []
+            strArr = [] # An array of the 16 16-bit strings that make up str
             for i in range(messageLenSqrt):
                 strArr.append(str[i * messageLenSqrt : (i + 1) * messageLenSqrt])
 
@@ -144,7 +144,7 @@ def singleImage():
                     # Shift the elements in the array appropriately to check all possible orderings of bits
                     s = wmlib.arrConcat(wmlib.shiftRight(wmlib.shiftDown(strArr, i), j))
 
-                    n1 = wmlib.decodeString(s)
+                    n1 = wmlib.bitToStr(s)
                     if n1[0] == "_" and not n1 in sols:
                         sols.append(n1)
                 except:

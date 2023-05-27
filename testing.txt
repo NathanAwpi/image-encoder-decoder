@@ -6,12 +6,15 @@ decode.py ..\..\test_out\me_1.jpg
 
 encode.py ..\..\my_test_images ..\..\test_out _thisisa32charactersamplemessage && decode.py ..\..\test_out\me_1.jpg
 
+encode.py ..\..\my_test_images ..\..\test_out "_Here-is-another-sample-message!"
+
 decode.py ..\..\test_robustness\modified_shieldmnt\single_image\rotate_1.jpg
 decode.py ..\..\test_out -m
 
 testaaaabbbbcccctestaaaabbbbcccc
 thisisa32charactermessage_extra7
 _thisisa32charactersamplemessage
+_Here is another sample message!
 
 Modified version of https://github.com/shieldmnt/invisible-watermark (currently using) - using single image
 compress (size -46%)        pass
