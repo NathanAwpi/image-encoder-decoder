@@ -72,23 +72,26 @@ def multipleImages():
     for s in strSols:
         for s1 in s:
             print(s1)
-    # print(strSols)
 
+    # Part of a correction mechanism I'm working on.
+    # Essentially, a lot of the decoded strings have 25-30 correct characters, but 2-7 incorrect characters.
+    # This code attempts to correct those inconsistencies.
     endSols = []
 
     for l in range(len(possibleSols)):
         for i in range(len(possibleSols[l])):
 
-            similarEnough = []
+            similarEnough = [] # the array of strings that are similar enough to the base string that they can be used to help correct inconsistencies
             for j in range(len(possibleSols)):
                 for k in range(len(possibleSols[j])):
                     # compare strings 1 and 2
-                    # if more than 80%? (can be changed) of the bits match, add string 2 to string 1's list of similar strings
-                    # at the end, make the new string equal to the rounded average of each of the bits
                     percent_similar = wmlib.similarity(possibleSols[l][i], possibleSols[j][k])
+
+                    # if more than 80%? (can be changed) of the bits match, add string 2 to string 1's list of similar strings
                     if percent_similar > 232 / 256:
                         similarEnough.append(possibleSols[j][k])
 
+                # at the end, make the new string equal to the rounded average of each of the bits
                 similarEnough.append(possibleSols[l][i])
                 s = wmlib.strAvg(similarEnough)
                 if not s in endSols:
@@ -97,18 +100,23 @@ def multipleImages():
     print("\nAveraged possible solutions:")
     for s in endSols:
         str = wmlib.bitToStr(s)
-        if str.count("`") <= 2:
+        if str.count("`") <= 2: # If a string has more than 2 `s in it, it's probably garbage
             print(str)
 
+    # takes the average of the average. It's pretty accurate when all of the images are severely cropped.
     print("\nDoubly averaged solution:")
     strEndSols = []
     for s in endSols:
         s1 = wmlib.bitToStr(s)
-        if s1.count("`") < 2:
+        if s1.count("`") < 2: # If a string has more than 2 `s in it, it's probably garbage
             strEndSols.append(s1)
     print(wmlib.strAvg(strEndSols))
 
 def singleImage():
+    '''
+    Decodes a single image.
+    '''
+
     print("Decoding image...")
     inputFile = sys.argv[1]
 
@@ -123,6 +131,8 @@ def singleImage():
 
     for w in watermark:
         str = wmlib.decodeString(bin(int(w.hex(), base=16))[2:]) # Convert from bytes type to bits
+
+        # Initialize an array of 8-character (8-bit) strings.
         strArr = []
         for i in range(messageLenSqrt):
             strArr.append(str[i * messageLenSqrt : (i + 1) * messageLenSqrt])
@@ -131,9 +141,10 @@ def singleImage():
             for j in range(messageLenSqrt):
                 # Check if the bits can form valid ASCII; if they can, add the ASCII to the solutions array
                 try:
+                    # Shift the elements in the array appropriately to check all possible orderings of bits
                     s = wmlib.arrConcat(wmlib.shiftRight(wmlib.shiftDown(strArr, i), j))
-                    n = int("0b" + s, 2)
-                    n1 = n.to_bytes((n.bit_length() + 7) // 8, 'big').decode()
+
+                    n1 = wmlib.decodeString(s)
                     if n1[0] == "_" and not n1 in sols:
                         sols.append(n1)
                 except:

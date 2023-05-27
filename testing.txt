@@ -28,6 +28,21 @@ resize (50%)                fail
 rotate (1 degree)           fail
 rotate (30 degrees)         fail
 
+Modified version of https://github.com/shieldmnt/invisible-watermark (currently using) - using multiple images
+compress (size -44-50%)     pass (had to look in list)
+noise (10%)                 pass (double had 1 char wrong, single + base had correct)
+noise (50%)                 fail
+decrease brightness (~50%)  fail
+increase brightness (~50%)  pass (double was wrong, single + base had correct)
+overlay (draw stuff)        pass (double 4-5 chars wrong, single + base had correct)
+mask (block out sections)   pass (double 1 char wrong, single + base had correct)
+mild crop (right/bottom)    pass (double 3-4 chars wrong, single + base had correct)
+severe crop (all sides)     pass (double 5 chars wrong, single 4 chars wrong, base 4 chars wrong)
+resize (95%)                fail
+resize (50%)                fail
+rotate (1 degree)           fail
+rotate (30 degrees)         fail
+
 https://github.com/shieldmnt/invisible-watermark
 compress (size -46%)        pass (1 char wrong)
 noise                       fail
