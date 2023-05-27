@@ -2,7 +2,7 @@ import sys
 import os
 import cv2
 from imwatermark import WatermarkEncoder
-import watermarklib
+import wmlib
 
 def main():
 
@@ -23,7 +23,7 @@ def main():
         exit(0)
 
     # Get the images
-    images = watermarklib.find_images(inputFolder)
+    images = wmlib.find_images(inputFolder)
 
     numImages = len(images)
     numCompleted = 1

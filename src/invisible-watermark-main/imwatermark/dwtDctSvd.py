@@ -4,6 +4,7 @@ import cv2
 import pywt
 import math
 import pprint
+import sys
 
 pp = pprint.PrettyPrinter(indent=2)
 
@@ -43,11 +44,10 @@ class EmbedDwtDctSvd(object):
         for x in range(self._block):
             for y in range(self._block):
 
+                sys.stdout.write("\033[K")
                 print("Decoding frame", index, "/", self._block **2, end="\r")
 
                 yuv = cv2.cvtColor(bgr, cv2.COLOR_BGR2YUV)
-                # print("Width:", len(yuv), ", height:", len(yuv[0]), ", value:", yuv[0][0])
-                # print("x:", x, ", y:", y)
 
                 scores = [[] for i in range(self._wmLen)]
                 for channel in range(2):
@@ -61,16 +61,12 @@ class EmbedDwtDctSvd(object):
                 avgScores = list(map(lambda l: np.array(l).mean(), scores))
 
                 bits = (np.array(avgScores) * 255 > 127)
-                # print("Average scores:\n", avgScores)
 
                 allBits.append(bits)
 
                 index = index + 1
 
-                # print("Message:", bits[0:32])
-        
         print("Decoding frame", self._block ** 2, "/", self._block ** 2)
-        print("Finished decoding frames.")
 
         return allBits
 
@@ -78,8 +74,6 @@ class EmbedDwtDctSvd(object):
         frame = frame[x:, y:]
         (row, col) = frame.shape
         sqrtWmLen = int(math.sqrt(self._wmLen))
-        # print("x:", x, ", y:", y)
-        # print("Rows:", row, ", Cols:", col)
 
         for i in range(row // (sqrtWmLen * self._block)):
             for j in range(col // (sqrtWmLen * self._block)):
@@ -94,23 +88,10 @@ class EmbedDwtDctSvd(object):
                         block = frame[k * self._block + iOffset : (k + 1) * self._block + iOffset,
                                     l * self._block + jOffset : (l + 1) * self._block + jOffset]
 
-                        # print("Block: ", block, ", Scale: ", scale)
                         score = self.infer_dct_svd(block, scale)
                         wmBit = num % self._wmLen
                         scores[wmBit].append(score)
                         num = num + 1
-                        # print("Read bit", block, "from position", k, "/", l, "with value", score)
-                        # print("wmBit:", wmBit)
-                        # if k == 0 and i == 1 and j == 0:
-                        #     print("Pos:", k * self._block + iOffset, "-", (k + 1) * self._block + iOffset,
-                        #           "/", l * self._block + jOffset, "-", (l + 1) * self._block + jOffset,
-                        #           "|", score)
-                        # if i == 0 and j == 0 and k == 0 and l == 0:
-                        #     print("First block:\n", block)
-        # print("Scores:", scores)
-
-        # print("Scores:", scores)
-        # print("")
         return scores
 
     def diffuse_dct_svd(self, block, wmBit, scale):

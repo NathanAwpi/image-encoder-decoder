@@ -7,6 +7,7 @@ decode.py ..\..\test_out\me_1.jpg
 encode.py ..\..\my_test_images ..\..\test_out _thisisa32charactersamplemessage && decode.py ..\..\test_out\me_1.jpg
 
 decode.py ..\..\test_robustness\modified_shieldmnt\single_image\rotate_1.jpg
+decode.py ..\..\test_out -m
 
 testaaaabbbbcccctestaaaabbbbcccc
 thisisa32charactermessage_extra7
